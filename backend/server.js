@@ -1,4 +1,3 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -22,30 +21,61 @@ dotenv.config();
 
 const app = express();
 
-app.use(helmet());
+/* =======================
+   CORS (DEV)
+======================= */
+const ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"];
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: (origin, cb) => {
+      // Postman/curl без Origin — дозволяємо
+      if (!origin) return cb(null, true);
+
+      if (ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
+
+      // не кидаємо Error (бо тоді буде "CORS error" без нормальної відповіді)
+      return cb(null, false);
+    },
     credentials: true,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// ✅ Express 5: НЕ використовуємо app.options("*", ...)
 app.use((req, res, next) => {
-  if (req.method === "OPTIONS") return res.sendStatus(204);
+  if (req.method === "OPTIONS") {
+    // cors middleware вже вище — заголовки встигнуть проставитись
+    return res.sendStatus(204);
+  }
   next();
 });
 
-app.use(express.json());
+/* =======================
+   HELMET
+======================= */
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+  })
+);
 
+app.use(express.json());
 app.set("trust proxy", 1);
 
-// ✅ Підключення Mongo (і дістаємо client для session store)
+/* =======================
+   DB
+======================= */
 const { connected, client } = await connectDB();
 
-// ✅ Session options
+/* =======================
+   SESSION
+======================= */
+const isProd = process.env.NODE_ENV === "production";
+
 const sessionOptions = {
   name: "sid",
   secret: process.env.SESSION_SECRET || "change_this_in_env",
@@ -53,17 +83,15 @@ const sessionOptions = {
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: isProd, // prod true (https), dev false
+    sameSite: isProd ? "none" : "lax",
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
 
-// ✅ Якщо Mongo є — зберігаємо сесії в Mongo через existing client
-// ✅ Якщо Mongo нема — MemoryStore (dev fallback), сервер не падає
 if (connected && client) {
   sessionOptions.store = MongoStore.create({
-    client, // <-- ключова зміна
+    client,
     collectionName: "sessions",
     ttl: 60 * 60 * 24 * 7,
   });
@@ -73,6 +101,9 @@ if (connected && client) {
 
 app.use(session(sessionOptions));
 
+/* =======================
+   ROUTES
+======================= */
 app.get("/api/ping", (_req, res) => res.send("pong"));
 
 app.use("/api/auth", authRoutes);
@@ -85,6 +116,9 @@ app.use("/api/awards", awardsRoutes);
 app.use("/api/feed", feedRoutes);
 app.use("/api/search", searchRoutes);
 
+/* =======================
+   ERRORS
+======================= */
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
 
 app.use((err, _req, res, _next) => {
