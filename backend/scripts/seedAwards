@@ -1,0 +1,57 @@
+// scripts/seedAwards.js
+import mongoose, { Types } from "mongoose";
+import dotenv from "dotenv";
+import Award from "../models/Award.js";
+import User from "../models/User.js";
+
+dotenv.config();
+
+const [,, userIdArg] = process.argv;
+
+if (!userIdArg || !Types.ObjectId.isValid(userIdArg)) {
+  console.error("❌ Передай валідний userId: npm run seed:awards -- <userId>");
+  process.exit(1);
+}
+
+const userId = new Types.ObjectId(userIdArg);
+
+async function run() {
+  await mongoose.connect(process.env.MONGO_URI, { dbName: process.env.MONGO_DB || "tacticalmed" });
+  console.log("✅ Підключено до MongoDB");
+
+  const userExists = await User.exists({ _id: userId });
+  if (!userExists) {
+    throw new Error(`Користувача з id ${userId} не знайдено`);
+  }
+
+  const awards = [
+    {
+      userId,
+      code: "WELCOME",
+      title: "Перші кроки",
+      description: "За перший логін і налаштування профілю",
+      points: 10,
+      progress: [{ value: 20 }], // <-- було 20, стало [{ value: 20 }]
+      achieved: false
+    },
+    {
+      userId,
+      code: "QUIZ_STARTER",
+      title: "Початківець вікторин",
+      description: "Пройди першу вікторину",
+      points: 25,
+      progress: [{ value: 0 }],
+      achieved: false
+    }
+  ];
+
+  await Award.insertMany(awards);
+  console.log("✅ Нагороди вставлені");
+  await mongoose.disconnect();
+}
+
+run().catch(async (e) => {
+  console.error("❌ Помилка сидера:", e);
+  await mongoose.disconnect();
+  process.exit(1);
+});
