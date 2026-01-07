@@ -1,0 +1,166 @@
+/* === GLOBAL THEME (Dark + Green accent) ============================= */
+
+:root {
+  /* Palette */
+  --bg:        #0f1113; /* головний фон */
+  --bg-2:      #15181b; /* другорядний фон */
+  --card:      #1b1f23; /* картки/панелі */
+  --text:      #e6e8eb; /* основний текст */
+  --muted:     #9aa4af; /* другорядний текст */
+  --border:    #2b3036; /* бордери/роздільники */
+
+  /* Accent (тактичний зелений) */
+  --primary:   #22c55e; /* зелений акцент */
+  --primary-600:#16a34a;
+  --primary-700:#15803d;
+
+  /* States */
+  --danger-bg:   #2a1114;
+  --danger-bd:   #3b1519;
+  --danger-tx:   #fecdd3;
+
+  --warn-bg:     #1f2420;
+  --warn-bd:     #2c332d;
+  --warn-tx:     #c6f6d5;
+
+  /* UI */
+  --radius:     14px;
+  --radius-sm:  10px;
+  --space:      16px;
+  --shadow:     0 8px 30px rgba(0, 0, 0, .35);
+}
+
+/* === Reset & base =================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+html {
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 700px at 80% -10%, rgba(34,197,94,.07), transparent 60%) no-repeat,
+              radial-gradient(900px 500px at 10% 110%, rgba(34,197,94,.06), transparent 60%) no-repeat,
+              var(--bg);
+  color: var(--text);
+  font: 400 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Links */
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Headings */
+h1,h2,h3 { margin: 0 0 10px; line-height: 1.25; }
+h1 { font-size: 28px; }
+h2 { font-size: 22px; color: var(--text); }
+h3 { font-size: 18px; color: var(--text); }
+
+/* Containers */
+main { min-height: 80vh; padding: 20px; }
+
+/* Card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Buttons (default + variants) */
+button {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-2);
+  color: var(--text);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: transform .05s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+button:hover { border-color: var(--primary); }
+button:active { transform: translateY(1px); }
+button:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 100%);
+  color: #071208;
+  border-color: var(--primary-700);
+  text-shadow: 0 1px 0 rgba(255,255,255,.25);
+}
+.btn-primary:hover {
+  box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  background: #111417;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea, select {
+  width: 100%;
+  background: var(--bg-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  outline: none;
+}
+textarea { min-height: 120px; }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+}
+
+/* Code & pre */
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+pre {
+  padding: 12px;
+  background: #0b0d0f;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: auto;
+}
+
+/* Lists */
+ul { padding-left: 18px; }
+
+/* Alerts */
+.notice {
+  padding: 10px 12px;
+  background: #0f1316;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.error {
+  color: var(--danger-tx);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-bd);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+/* Scrollbar (webkit) */
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: #2a2f35;
+  border: 2px solid #15181b;
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb:hover { background: #31373e; }

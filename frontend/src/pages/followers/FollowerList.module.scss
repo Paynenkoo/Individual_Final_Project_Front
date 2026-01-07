@@ -1,0 +1,5 @@
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+.list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.row{display:flex;align-items:center;justify-content:space-between;border:1px solid #eee;border-radius:12px;padding:10px;background:#fff}
+.user{display:flex;gap:10px;align-items:center}
+.avatar{width:32px;height:32px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-weight:700}

@@ -1,0 +1,7 @@
+.card{border:1px solid rgba(0,0,0,.1);border-radius:16px;padding:16px;margin:12px 0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.header{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eee;font-weight:700}
+.meta{display:flex;flex-direction:column}
+.author{font-weight:600}
+.date{font-size:12px;opacity:.6}
+.body{white-space:pre-wrap;line-height:1.5}

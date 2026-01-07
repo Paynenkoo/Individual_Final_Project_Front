@@ -1,0 +1,12 @@
+.footer {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.inner {
+  max-width: 1100px; margin: 0 auto; padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  color: var(--muted); font-size: 14px;
+}
+.links { display: flex; gap: 12px; a { color: var(--muted); } a:hover { color: var(--primary); } }
+.copy { opacity: .85; }

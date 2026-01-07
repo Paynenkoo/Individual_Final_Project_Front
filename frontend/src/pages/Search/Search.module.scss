@@ -1,0 +1,8 @@
+/* frontend/src/pages/Search/Search.module.scss */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; display: grid; gap: 12px; }
+.bar { display: flex; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; box-shadow: var(--shadow); display: grid; gap: 8px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.title { font-weight: 700; }
+.meta { color: var(--muted); font-size: 12px; }

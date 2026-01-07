@@ -1,0 +1,51 @@
+.wrap { max-width: 980px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
+
+.form {
+  display: grid; gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.title { margin: 0 0 6px; }
+.row { display: grid; gap: 6px; }
+.actions { display: flex; gap: 8px; }
+
+.empty {
+  padding: 10px 12px;
+  background: #0f1316;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  list-style: none;
+  padding: 0; margin: 0;
+}
+
+.noteCard {
+  display: grid; gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.noteHeader { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.noteTitle { font-weight: 700; }
+.noteText { color: var(--text); white-space: pre-wrap; }
+.noteMeta { color: var(--muted); font-size: 12px; }
+
+.deleteBtn {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #111417;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.deleteBtn:hover { background: #14181b; }

@@ -1,0 +1,5 @@
+.row{display:flex;gap:10px;margin:8px 0}
+.avatar{width:28px;height:28px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-weight:700}
+.bubble{background:#f7f7f8;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:10px;flex:1}
+.header{display:flex;gap:8px;font-size:12px;opacity:.7;margin-bottom:4px}
+.author{font-weight:600}

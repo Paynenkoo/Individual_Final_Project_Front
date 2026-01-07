@@ -1,0 +1,236 @@
+.homePageWrapper {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 🔹 Картки */
+.sectionCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: #1e1e1e;
+  border: 2px solid #8eff00;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+  h3 {
+    margin: 0.5rem 0;
+    font-size: 1.4rem;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #ccc;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(142, 255, 0, 0.6);
+  }
+}
+
+/* 🔹 Інтро секція */
+.introSection {
+  background: #111;
+  border-left: 5px solid #8eff00;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.heading {
+  font-size: 2rem;
+  color: #8eff00;
+  margin-bottom: 1rem;
+}
+
+.text {
+  color: #eee;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* 🔹 MARCH список */
+.marchList {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  li {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+}
+
+/* 🔹 Кнопка CTA */
+.ctaButton {
+  background: #8eff00;
+  color: #000;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+
+  &:hover {
+    background: #aaff33;
+  }
+}
+
+/* 🔹 Блок ресурсів */
+.resourceLinks {
+  width: 100%;
+
+  h3 {
+    color: #8eff00;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        color: #80dfff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+/* 🔹 Адаптивність */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 1.6rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .introSection {
+    padding: 1.2rem;
+  }
+}
+.feedSection {
+  margin-top: 32px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.feedHeading {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+
+.feedSearch {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+
+  input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+
+  button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .feedLink {
+    margin-left: auto;
+    font-size: 14px;
+    text-decoration: none;
+  }
+}
+
+.feedError { color: crimson; margin-bottom: 8px; }
+.feedLoading { opacity: 0.8; margin-bottom: 8px; }
+
+.feedList {
+  display: grid;
+  gap: 12px;
+}
+
+.feedItem {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+}
+
+.feedMeta {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.feedText {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.feedMoreWrap { text-align: center; margin-top: 12px; }
+.feedMoreBtn  {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 16px; display: grid; gap: 12px; }
+.searchBar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+  display: flex; gap: 8px;
+}
+.list { display: grid; gap: 10px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+  display: grid; gap: 8px;
+}
+.head { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #0f1417; border: 1px solid var(--border); color: var(--primary); font-weight: 800; }
+.meta { display: grid; gap: 2px; }
+.author { font-weight: 700; }
+.time { color: var(--muted); font-size: 12px; }
+.topic { font-weight: 700; }
+.stats { display: flex; gap: 12px; align-items: center; color: var(--muted); }
+.followBtn { margin-left: auto; }
+.sentinel { height: 1px; }
