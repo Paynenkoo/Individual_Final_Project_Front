@@ -1,5 +1,4 @@
-// frontend/src/App.js
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,6 +20,7 @@ import GuideDetails from "./pages/GuideDetails/GuideDetails";
 import Quizzes from "./pages/Quizzes/Quizzes";
 import QuizDetails from "./pages/QuizDetails/QuizDetails";
 
+
 import Bazilka from "./pages/Bazilka/Bazilka";
 
 import Notes from "./pages/Notes/Notes";
@@ -35,21 +35,26 @@ import Account from "./pages/Account/Account";
 
 import Logout from "./pages/Logout/Logout";
 
-import { fetchMeThunk, selectAuthUser } from "./store/slices/authSlice";
+import {
+  fetchMeThunk,
+  selectAuthUser,
+  selectAuthInited,
+} from "./store/slices/authSlice";
 
 export default function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectAuthUser);
+  const inited = useSelector(selectAuthInited);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token && !user) {
+    if (!inited && token && !user) {
       dispatch(fetchMeThunk());
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, inited]);
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Header />
       <main className="app-container">
@@ -74,11 +79,18 @@ export default function App() {
           {/* Профілі/акаунт */}
           <Route path="/account/:id" element={<Account />} />
           <Route path="/profile/:id" element={<Profile />} />
-           {/* Досягнення */}
-          <Route path="/awards" element={<Awards />} />
 
+          {/* Awards — приватна */}
+          <Route
+            path="/awards"
+            element={
+              <PrivateRoute>
+                <Awards />
+              </PrivateRoute>
+            }
+          />
 
-          {/* Список фоловерів (можна зробити захищеним, якщо хочеш) */}
+          {/* Followers — приватна */}
           <Route
             path="/followers"
             element={
@@ -88,7 +100,7 @@ export default function App() {
             }
           />
 
-          {/* Приватні сторінки (потрібен логін) */}
+          {/* Progress — приватна */}
           <Route
             path="/progress/:id"
             element={
@@ -98,6 +110,7 @@ export default function App() {
             }
           />
 
+          {/* Notes — приватна */}
           <Route
             path="/notes"
             element={
@@ -107,6 +120,7 @@ export default function App() {
             }
           />
 
+          {/* Settings — приватна */}
           <Route
             path="/account/settings"
             element={
@@ -116,15 +130,22 @@ export default function App() {
             }
           />
 
-          {/* Вихід */}
-          <Route path="/logout" element={<Logout />} />
+          {/* Logout — приватна */}
+          <Route
+            path="/logout"
+            element={
+              <PrivateRoute>
+                <Logout />
+              </PrivateRoute>
+            }
+          />
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
@@ -133,7 +154,9 @@ function NotFound() {
   return (
     <div className="card">
       <h1 className="h1">404</h1>
-      <p className="muted">Сторінку не знайдено. Перевір URL або повернись на головну.</p>
+      <p className="muted">
+        Сторінку не знайдено. Перевір URL або повернись на головну.
+      </p>
     </div>
   );
 }
