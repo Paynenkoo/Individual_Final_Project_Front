@@ -1,4 +1,10 @@
-import api from "./axios";
+﻿import api from "./axios";
+
+// беремо токен з localStorage і формуємо Bearer
+const authHeaders = () => {
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
 // LOGIN
 export const loginApi = async ({ emailOrUsername, password }) => {
@@ -7,10 +13,12 @@ export const loginApi = async ({ emailOrUsername, password }) => {
     password,
   });
 
-  // 🔥 КЛЮЧОВЕ
-  localStorage.setItem("token", data.token);
+  // зберігаємо токен
+  if (data?.token) {
+    localStorage.setItem("token", data.token);
+  }
 
-  return data;
+  return data; // { token, user }
 };
 
 // REGISTER
@@ -21,11 +29,19 @@ export const registerApi = async ({ username, email, password }) => {
     password,
   });
 
-  return data;
+  // якщо бекенд повертає токен — теж зберігаємо
+  if (data?.token) {
+    localStorage.setItem("token", data.token);
+  }
+
+  return data; // { token, user }
 };
 
 // ME
 export const meApi = async () => {
-  const { data } = await api.get("/auth/me");
+  const { data } = await api.get("/auth/me", {
+    headers: authHeaders(),
+  });
+
   return data;
 };
